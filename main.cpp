@@ -1,6 +1,15 @@
+/*THINGS TO ADD:
+PARTICLE MOVEMENT TO USE SPEED INSTEAD OF ++
+MAKE THEM GO FAST AFTER TOUCHING THE POINT
+USE DYNAMIC MEMORY
+USE VEC2 CLASS
+IMPLEMENT THE SLIDER
+IMPLEMENT A PARTICLE COUNTER
+*/
 #include "CFactor.h"
 #include <vector>
 #include <random>
+#include <cmath>
 #include "Particle.h"
 #include "focalPoint.h"
 //aici dau numar fix
@@ -61,7 +70,7 @@ float deltax=(x2-x1)*(x2-x1);
     float deltay=(y2-y1)*(y2-y1);
     return sqrt(deltax+deltay);};
     int newR=fc(particule[i].getX(),particule[i].getY(),f.getX(),f.getY());
-    particule[i].changeColor(newR,g,b);
+    particule[i].changeColor(newR,g*sin(g),b*cos(b));
 }
 Draw();
 }

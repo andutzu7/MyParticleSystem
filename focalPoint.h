@@ -1,27 +1,26 @@
 #pragma once
-class focalPoint{
+#include "Point.h"
+
+class focalPoint: public Point{
 private:
-    int x;
-    int y;
 
 public:
-    focalPoint(int in_x,int in_y)
-    :
-        x(in_x),
-        y(in_y)
+    focalPoint(float in_x,float in_y)
     {
+        position.x=in_x;
+        position.y=in_y;
     }
-int getX() const
+const int GetX() const
 {
-    return x;
+    return position.x;
 }
-int getY() const
+const int getY() const
 {
-    return y;
+    return position.y;
 }
-void Update(int new_x,int new_y)
+void Update(float new_x,float new_y)
 {
-    x=new_x;
-    y=new_y;
+position.x=new_x;
+position.y=new_y;
 }
 };

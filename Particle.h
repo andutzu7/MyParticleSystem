@@ -1,19 +1,18 @@
 #pragma once
 #include "focalPoint.h"
-#include <utility>
-#include <cmath>
+#include "Point.h"
+
 typedef olc::Pixel Color;
-class Particle{
+class Particle: public Point{
 private:
-    Color c;
-    int x;
-    int y;
+  Color c;
+  Vec2 velocity;
 public:
-    Particle(int in_x,int in_y)
-      :
-    x(in_x),
-    y(in_y)
-    {}
+    Particle(float in_x,float in_y)// to add vel
+{
+    position.x=in_x;
+    position.y=in_y;
+}
 Color getColor()
 {
     return c;
@@ -26,22 +25,9 @@ int getY() const
 {
     return y;
 }
-void followFocalPoint(focalPoint p)
+void followFocalPoint(focalPoint& p)
 {
-    if(p.getX()<x)
-     {
-         x--;
-     }
-     if(p.getY()<y)
-     {
-        y--;
-     }
-     if(p.getX()>x)
-     {
-         x++;
-     }
-     if(p.getY()>y)
-        y++;
+
 }
 
 
@@ -50,7 +36,7 @@ void changeColor(int r ,int g,int b)
     c = Color(r,g,b);
 
 }
-bool operator==(Particle other)
+bool operator==(Particle &other)
 {
     return ((x==other.getX()) && (y==other.getY()));
 }
