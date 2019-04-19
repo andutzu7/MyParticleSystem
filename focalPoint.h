@@ -10,13 +10,17 @@ public:
         position.x=in_x;
         position.y=in_y;
     }
-const int GetX() const
+const float GetX()
 {
     return position.x;
 }
-const int getY() const
+const float GetY()
 {
     return position.y;
+}
+const Vec2 GetPosition()
+{
+    return position;
 }
 void Update(float new_x,float new_y)
 {

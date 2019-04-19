@@ -2,7 +2,7 @@
 #include "olcPixelGameEngine.h"
 #include <iostream>
 
-void Update();
+void Update(float dt);
 void Draw();
 void __DrawFromMain(){Draw();} // beacuse the engine has a Draw function already
 void ClearScreen();
@@ -23,7 +23,7 @@ public:
     bool OnUserUpdate(float fElapsedTime) override
     {
         ClearScreen();
-        Update();
+        Update(fElapsedTime);
         __DrawFromMain();
         return true;
     }

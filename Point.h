@@ -3,9 +3,9 @@
 class Point{
 public:
 Vec2 position;
-virtual int GetX()=0;
-virtual int GetY()=0;
-
+virtual const float GetX()=0;
+virtual const float GetY()=0;
+virtual const Vec2 GetPosition()=0;
 
 };
 
