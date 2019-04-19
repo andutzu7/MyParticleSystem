@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1555662970 source:d:\fas\main.cpp
+	"CFactor.h"
+
+1555661214 d:\fas\cfactor.h
+	"olcPixelGameEngine.h"
+	<iostream>
+
+1555627992 d:\fas\olcpixelgameengine.h
+	"olcPixelGameEngine.h"
+	<windows.h>
+	<gdiplus.h>
+	<GL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<X11/X.h>
+	<X11/Xlib.h>
+	<png.h>
+	<cmath>
+	<cstdint>
+	<string>
+	<iostream>
+	<streambuf>
+	<chrono>
+	<vector>
+	<list>
+	<thread>
+	<atomic>
+	<condition_variable>
+	<fstream>
+	<map>
+	<functional>
+	<algorithm>
+	"olcPixelGameEngine.h"
+
