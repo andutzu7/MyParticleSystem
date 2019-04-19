@@ -1,6 +1,7 @@
 #pragma once
 #include "focalPoint.h"
 #include <utility>
+#include <cmath>
 typedef olc::Pixel Color;
 class Particle{
 private:
@@ -13,12 +14,10 @@ public:
     x(in_x),
     y(in_y)
     {}
-    Particle(int in_x,int in_y,Color col)
-    {
-        x=in_x;
-        y=in_y;
-        c=col;
-    }
+Color getColor()
+{
+    return c;
+}
 int getX() const
 {
     return x;
@@ -45,14 +44,7 @@ void followFocalPoint(focalPoint p)
         y++;
 }
 
-std::pair<int, int>distanceTillFocalPoint(focalPoint p) const
-{
-    std::pair<int,int> pa;
-    pa.first=p.getX()-x;
-    pa.second=p.getY()-y;
-    return pa;
 
-}
 void changeColor(int r ,int g,int b)
 {
     c = Color(r,g,b);
@@ -62,4 +54,5 @@ bool operator==(Particle other)
 {
     return ((x==other.getX()) && (y==other.getY()));
 }
+
 };

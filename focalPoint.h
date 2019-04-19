@@ -19,4 +19,9 @@ int getY() const
 {
     return y;
 }
+void Update(int new_x,int new_y)
+{
+    x=new_x;
+    y=new_y;
+}
 };
