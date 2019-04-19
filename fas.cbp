@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Particle.cpp" />
+		<Unit filename="Particle.h" />
+		<Unit filename="focalPoint.cpp" />
+		<Unit filename="focalPoint.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
