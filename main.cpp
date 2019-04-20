@@ -15,32 +15,27 @@ MAKE THEM reflect FAST AFTER TOUCHING THE POINT
 #include "focalPoint.h"
 #include <algorithm>
 #include <initializer_list>
+#include "Settings.h"
 using namespace std;
-//aici dau numar fix
-// to be changed after i add the sliding bar
-int nr_particule=75000;
-int g=255;
-int b=255;
-int r=0;
-const int atractie=1000;//forta de atractie a fp ului,care va i reglata din slider
-
-std::vector<Particle>particule;
-focalPoint f(demo.GetMouseX(),demo.GetMouseY(),atractie);
-
+///Nush unde sa le declar asa ca le scriu aici global aca o sa avem nevoie de ele oricum
+std::vector<Particle>particule;//container in care tin toate particulele de pe ecran
+Settings Sett(75000,255,255,0,1000);//setari initiale ale jocului
+focalPoint f(demo.GetMouseX(),demo.GetMouseY(),Sett.focalPointAttraction);//unde initializez point to follow in fct de pozitia mouseului
 
 void Start()
 {
-
+//just the usual generate random thing
     std::default_random_engine generator;
     std::uniform_int_distribution<int> Xdistribution(0,2*ScreenWidth);
     std::uniform_int_distribution<int> Ydistribution(0,2*ScreenHeight);
-
-    while(nr_particule)
+//aici umplem vectorul cu nr initial de particule din settings
+    auto StartParticleNumber=Sett.nr_particule;
+    while(StartParticleNumber)
     {
-        Particle p(Xdistribution(generator),Ydistribution(generator));
+        Particle p(Xdistribution(generator),Ydistribution(generator));//generam random o pozitie
 
-        particule.push_back(p);
-        nr_particule--;
+        particule.push_back(p);//o adaugam in vector
+        StartParticleNumber--;//scadem din settings numarul de particule
     }
 
 
@@ -49,8 +44,8 @@ void Start()
 
 void Update(float dt)
 {
-//   Sleep(10);
-    f.Update(demo.GetMouseX(),demo.GetMouseY());
+
+    f.Update(demo.GetMouseX(),demo.GetMouseY());//la fiecare frame facem update la pozitia focal-poitului
     for(int i=0; i<particule.size(); i++)
     {
 
@@ -62,31 +57,33 @@ void Update(float dt)
             particule[i].ResetPosition({rand()%(2*ScreenWidth),rand()%(2*ScreenHeight)});
             particule[i].touchedFPoint=false;
         }*/
-        auto DetermineDistance=[](Vec2 lhs,Vec2 rhs)->float
+        auto DetermineDistance=[](Vec2 lhs,Vec2 rhs)->float///aici calculez shadeul. lambda e pt distanta dintre 2 pct pe care o folosesc la forumula finala
         {
             float deltax=(rhs.x-lhs.x)*(rhs.x-lhs.x);
             float deltay=(rhs.y-lhs.y)*(rhs.y-lhs.y);
             return sqrt(deltax+deltay);
         };
 
-        float color=f.GetCurrentForce(particule[i]);
-        float h= DetermineDistance(Vec2(0,0),Vec2(ScreenWidth,ScreenHeight));
-        float d=DetermineDistance(particule[i].GetPosition(),f.GetPosition());
-        float rat=d/h;//color ratio
-       particule[i].changeColor(255*rat,255-g*rat,0);
+        float h= DetermineDistance(Vec2(0,0),Vec2(ScreenWidth,ScreenHeight));//diagonala ecranului,cea mai mare distanta care poate fi gasita pe un ecran.
+        float d=DetermineDistance(particule[i].GetPosition(),f.GetPosition());//apelam domnisoara lambda
+        float rat=d/h;//color ratio->rezulatul e ratie care determina distanta particulei relativ la pozitia fP ului. determina o nunata in timp real
+
+       particule[i].changeColor(255*rat,255-Sett.greenValue*rat,123);
     }
     Draw();
+
+
     }
 
 void Draw()
 {
-    for(int i=0; i<particule.size(); i++)
+    for(int i=0; i<particule.size(); i++) //desenam particulele
         PutPixel(particule[i].GetX(),particule[i].GetY(),particule[i].getColor());
-
 }
 
 int main()
 {
+
     Start();
     StartWindow();
 
