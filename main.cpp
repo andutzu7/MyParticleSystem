@@ -19,10 +19,10 @@ MAKE THEM reflect FAST AFTER TOUCHING THE POINT
 using namespace std;
 //aici dau numar fix
 // to be changed after i add the sliding bar
-int nr_particule=25000;
+int nr_particule=3;
 const int g=111;
 const int b=255;
-const int atractie=5000;//forta de atractie a fp ului,care va i reglata din slider
+const int atractie=2000;//forta de atractie a fp ului,care va i reglata din slider
 
 std::vector<Particle>particule;
 focalPoint f(demo.GetMouseX(),demo.GetMouseY(),atractie);
@@ -35,39 +35,12 @@ void Start()
     std::uniform_int_distribution<int> Xdistribution(0,2*ScreenWidth);
     std::uniform_int_distribution<int> Ydistribution(0,2*ScreenHeight);
 
-/*
     while(nr_particule>0)
     {
         Particle p(Xdistribution(generator),Ydistribution(generator));
 
-        if(particule.empty())
-        {
-            particule.push_back(p);
-            nr_particule--;
-
-        }
-        bool ok=true;
-        for(int i=0; i<particule.size(); i++)
-        {
-            if(particule[i]==p)
-            {
-                ok=false;
-                break;
-            }
-        }
-        if(ok)
-        {
-            particule.push_back(p);
-            nr_particule--;
-            f.AtrractParticle(p);
-        }
-*/
-while(nr_particule>0)
-    {
-        Particle p(Xdistribution(generator),Ydistribution(generator));
-
-particule.push_back(p);
-nr_particule--;
+        particule.push_back(p);
+        nr_particule--;
     }
 
 
@@ -81,15 +54,15 @@ void Update(float dt)
     for(int i=0; i<particule.size(); i++)
     {
 
-    f.AtrractParticle(particule[i]);
-         if(particule[i].touchedFPoint)
+        f.AtrractParticle(particule[i]);
+        /*if(particule[i].touchedFPoint)   ///NOT USING THIS BUT I M KEEPING IT(THAT WHAT SHE SAID) BECAUSE IT MADE ME TOO HAPPY TO JUST DUMP IT
         {
 
-    ///WHAT THE HELL IT WORKS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        particule[i].ResetPosition({rand()%(2*ScreenWidth),rand()%(2*ScreenHeight)});
-        particule[i].touchedFPoint=false;
-        }
-      auto fc=[](int x1,int y1,int x2,int y2)->int
+            ///WHAT THE HELL IT WORKS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            particule[i].ResetPosition({rand()%(2*ScreenWidth),rand()%(2*ScreenHeight)});
+            particule[i].touchedFPoint=false;
+        }*/
+        auto fc=[](int x1,int y1,int x2,int y2)->int
         {
             float deltax=(x2-x1)*(x2-x1);
             float deltay=(y2-y1)*(y2-y1);

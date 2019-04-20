@@ -40,23 +40,34 @@ void AtrractParticle(Particle& p)
        Vec2 force=distance;
        force.Normalize();
        float strenght=(mass*p.mass)/(distance.GetLength()*distance.GetLength());//FORMULA ATRACTIEI DE LA FIZICA G*MASS1*MASS2/DISTANTA LA PATRAT. IN CAZUL MEU NU MAI CONSIDER ATRACTIA GRAVITATIONALA ,DOAR MASELE OBIECTELOR
-      force*=strenght;
+       force*=strenght;
       ///ZONA UNDE CALCULEZ DIRECTIA
        Vec2 direction=(position-p.position);
        direction=direction.GetNormalized();
 
 
        ///ZONA UNDE FAC UPDATE LA POZITIA PARTICULEI
-       Vec2 velocity=direction;
+      Vec2 velocity=direction;
        Vec2 acceleration=force;//formula la fizica e force/mass dar particula mea are masa unu asa ca nu ma complic
        velocity+=acceleration;
+
+       if(p.touchedFPoint)
+       {
+
+       strenght*=rand()%ScreenWidth;//a random constant used for the pullback force
+       force*=strenght;
+       Vec2 acceleration=force;
+       velocity-=acceleration;
+
+       }
+
        p.position+=velocity;
 
-
        ///ZONA UNDE TESTEZ DACA ESTE IN ZONA FP-ului pt a respawna obiectul
-       if(distance.GetLength()<=1.0f)
+       if(distance.GetLength()<=0.1f)
             p.touchedFPoint=true;
 
 
     }
+
 };

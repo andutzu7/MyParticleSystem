@@ -2,22 +2,15 @@
 #include "Point.h"
 #include <random>
 #include <cmath>
+#include <time.h>
 #include <iostream>
 typedef olc::Pixel Color;
 class Particle: public Point
 {
 private:
-    Color c;
-public:
-    class ReflectedParticle
-    {
-        Vec2 position;
-        Color c;
-     //   time (&now);
-           // int dif = difftime (now,start);
 
-    };
-    float speed;
+public:
+    Color c;
     bool touchedFPoint=false;
     Particle(float in_x,float in_y)
     {
