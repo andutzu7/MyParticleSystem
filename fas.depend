@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1555705261 source:d:\fas\main.cpp
+1555763353 source:d:\fas\main.cpp
 	"CFactor.h"
 	<vector>
 	<random>
@@ -7,9 +7,7 @@
 	"Particle.h"
 	"focalPoint.h"
 	<algorithm>
-	<time.h>
 	<initializer_list>
-	<time.h>
 
 1555698785 d:\fas\cfactor.h
 	"olcPixelGameEngine.h"
@@ -46,18 +44,19 @@
 
 1555667233 source:d:\fas\particle.cpp
 
-1555705183 d:\fas\particle.h
-	"focalPoint.h"
+1555762180 d:\fas\particle.h
 	"Point.h"
 	<random>
 	<cmath>
+	<iostream>
 
-1555699726 d:\fas\focalpoint.h
+1555762348 d:\fas\focalpoint.h
 	"Point.h"
+	"Particle.h"
 
 1555689766 d:\fas\vec2.h
 	<cmath>
 
-1555699697 d:\fas\point.h
+1555757911 d:\fas\point.h
 	"Vec2.h"
 
