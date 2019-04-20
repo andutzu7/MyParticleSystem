@@ -2,7 +2,6 @@
 PARTICLE MOVEMENT TO USE SPEED INSTEAD OF ++///check
 IMPLEMENT THE SLIDER
 IMPLEMENT A PARTICLE COUNTER
-increase speed by rotating the wheel
 USE DYNAMIC MEMORY
 USE VEC2 CLASS//check
 MAKE THEM reflect FAST AFTER TOUCHING THE POINT
@@ -19,23 +18,24 @@ MAKE THEM reflect FAST AFTER TOUCHING THE POINT
 using namespace std;
 //aici dau numar fix
 // to be changed after i add the sliding bar
-int nr_particule=3;
-const int g=111;
-const int b=255;
-const int atractie=2000;//forta de atractie a fp ului,care va i reglata din slider
+int nr_particule=75000;
+int g=255;
+int b=255;
+int r=0;
+const int atractie=1000;//forta de atractie a fp ului,care va i reglata din slider
 
 std::vector<Particle>particule;
 focalPoint f(demo.GetMouseX(),demo.GetMouseY(),atractie);
-time_t start,now;
+
 
 void Start()
 {
-    time (&start);
+
     std::default_random_engine generator;
     std::uniform_int_distribution<int> Xdistribution(0,2*ScreenWidth);
     std::uniform_int_distribution<int> Ydistribution(0,2*ScreenHeight);
 
-    while(nr_particule>0)
+    while(nr_particule)
     {
         Particle p(Xdistribution(generator),Ydistribution(generator));
 
@@ -49,7 +49,7 @@ void Start()
 
 void Update(float dt)
 {
-    Sleep(10);
+//   Sleep(10);
     f.Update(demo.GetMouseX(),demo.GetMouseY());
     for(int i=0; i<particule.size(); i++)
     {
@@ -62,17 +62,21 @@ void Update(float dt)
             particule[i].ResetPosition({rand()%(2*ScreenWidth),rand()%(2*ScreenHeight)});
             particule[i].touchedFPoint=false;
         }*/
-        auto fc=[](int x1,int y1,int x2,int y2)->int
+        auto DetermineDistance=[](Vec2 lhs,Vec2 rhs)->float
         {
-            float deltax=(x2-x1)*(x2-x1);
-            float deltay=(y2-y1)*(y2-y1);
+            float deltax=(rhs.x-lhs.x)*(rhs.x-lhs.x);
+            float deltay=(rhs.y-lhs.y)*(rhs.y-lhs.y);
             return sqrt(deltax+deltay);
         };
-        int newR=fc(particule[i].GetX(),particule[i].GetY(),f.GetX(),f.GetY()); // pentru schimbatul nuantei cand se aproprie de punct
-        particule[i].changeColor(newR,g,b);
+
+        float color=f.GetCurrentForce(particule[i]);
+        float h= DetermineDistance(Vec2(0,0),Vec2(ScreenWidth,ScreenHeight));
+        float d=DetermineDistance(particule[i].GetPosition(),f.GetPosition());
+        float rat=d/h;//color ratio
+       particule[i].changeColor(255*rat,255-g*rat,0);
     }
     Draw();
-}
+    }
 
 void Draw()
 {

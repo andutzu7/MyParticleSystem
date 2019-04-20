@@ -69,5 +69,12 @@ void AtrractParticle(Particle& p)
 
 
     }
+float GetCurrentForce(Particle& p)
+{
+      ///ZONA UNDE CALCULEZ DISTANTA
+      Vec2 distance=position-p.position;
+      Vec2 force=distance;
 
+        return force.GetLength();
+}
 };
