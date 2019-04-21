@@ -34,6 +34,7 @@
 		</Compiler>
 		<Unit filename="Particle.h" />
 		<Unit filename="Point.h" />
+		<Unit filename="Settings.h" />
 		<Unit filename="Vec2.h" />
 		<Unit filename="focalPoint.h" />
 		<Unit filename="main.cpp" />

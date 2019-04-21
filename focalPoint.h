@@ -1,7 +1,7 @@
 #pragma once
 #include "Point.h"
 #include "Particle.h"
-class focalPoint: public Point{
+class focalPoint: public Point{ ///tot derivata din point
 private:
 
 public:
@@ -9,9 +9,9 @@ public:
     {
         position.x=in_x;
         position.y=in_y;
-        mass=in_mass;
+        mass=in_mass;  ///masa e forta de atractie basically
     }
-const float GetX()
+const float GetX()  ///gettere obisnuite si obligatorii
 {
     return position.x;
 }
@@ -23,12 +23,12 @@ const Vec2 GetPosition()
 {
     return position;
 }
-void Update(float new_x,float new_y)
+void Update(float new_x,float new_y)  ///since we work with the mouse, in fiecare frame fac update la pozitia actuala a fp based on the mouse position/
 {
 position.x=new_x;
 position.y=new_y;
 }
-void AtrractParticle(Particle& p)
+void AtrractParticle(Particle& p)  //aici e big deal, atrag o particula folosind formula atractiei de la fizica.if u curious google it its eztofind
     {
 
      // old speed adjusting method speed+=0.5f;OLD//SolutieDeTaraniDaMerge
@@ -51,30 +51,22 @@ void AtrractParticle(Particle& p)
        Vec2 acceleration=force;//formula la fizica e force/mass dar particula mea are masa unu asa ca nu ma complic
        velocity+=acceleration;
 
-       if(p.touchedFPoint)
+       if(p.touchedFPoint) ///aici arunc particulele care au atins fp ul int directia opusa fata de unde au venit
        {
 
        strenght*=rand()%ScreenWidth;//a random constant used for the pullback force
        force*=strenght;
        Vec2 acceleration=force;
-       velocity-=acceleration;
+       velocity-=acceleration;///ca sa mergem in directia opusa
 
        }
 
-       p.position+=velocity;
+       p.position+=velocity; //update positionbby
 
-       ///ZONA UNDE TESTEZ DACA ESTE IN ZONA FP-ului pt a respawna obiectul
+       ///ZONA UNDE TESTEZ DACA ESTE IN ZONA FP-ului pt a-l reflecta obiectul
        if(distance.GetLength()<=0.1f)
             p.touchedFPoint=true;
 
-
     }
-float GetCurrentForce(Particle& p)
-{
-      ///ZONA UNDE CALCULEZ DISTANTA
-      Vec2 distance=position-p.position;
-      Vec2 force=distance;
 
-        return force.GetLength();
-}
 };

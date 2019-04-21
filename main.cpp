@@ -19,7 +19,7 @@ MAKE THEM reflect FAST AFTER TOUCHING THE POINT
 using namespace std;
 ///Nush unde sa le declar asa ca le scriu aici global aca o sa avem nevoie de ele oricum
 std::vector<Particle>particule;//container in care tin toate particulele de pe ecran
-Settings Sett(75000,255,255,0,1000);//setari initiale ale jocului
+Settings Sett(75000,255,255,255,1000);//setari initiale ale jocului
 focalPoint f(demo.GetMouseX(),demo.GetMouseY(),Sett.focalPointAttraction);//unde initializez point to follow in fct de pozitia mouseului
 
 void Start()
@@ -68,10 +68,9 @@ void Update(float dt)
         float d=DetermineDistance(particule[i].GetPosition(),f.GetPosition());//apelam domnisoara lambda
         float rat=d/h;//color ratio->rezulatul e ratie care determina distanta particulei relativ la pozitia fP ului. determina o nunata in timp real
 
-       particule[i].changeColor(255*rat,255-Sett.greenValue*rat,123);
+       particule[i].changeColor(Sett.redValue*rat,Sett.greenValue*rat,255-Sett.blueValue*rat*sin(rat));//just doodling around to get a nice shade
     }
     Draw();
-
 
     }
 
